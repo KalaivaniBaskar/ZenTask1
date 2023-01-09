@@ -1,1 +1,141 @@
-Browser Window
+OBJECT AND ITS INTERNAL REPRESENTATION : 
+
+OBJECT: 
+1. An object is collection of properties. An object can hold collection of data of all types. 
+2. Unlike arrays, object stores data in an unordered manner. There is no indexing.
+3. Object properties in JavaScript are represented as "key : value" pairs aka "name : value" pairs.
+
+4. Each such "key : value " pair is a property of the object. The value of a key can be accessed in two ways.
+ -- Dot notation : objectname.key
+ -- Bracket notation : objectname["key"]
+
+5. key should be a String, Number , Boolean , null, undefined whereas value can be of primitive and no
+ex., var obj = { a : 123, 1 : "abdc", obj1 : { a: 1, b : 2}, arr : [1,2,3,4], true : false, 
+                null : "nothing", undefined : "not defined" } 
+
+6.  to add new key : value to an existing object, simply assign 
+           objectname.key = value   or objectname["key"] = value 
+     we can add a new key as follows
+            var mobile = { name : "Samsung"} 
+            mobile.model = "flip"
+            mobile["OS"] = "android"
+            console.log(mobile) //Output : {name: 'Samsung', model: 'flip', OS: 'android'}
+    
+7. An object may represent a real world entity, say a Car and it  can have properties like name, model, speed 
+Ex.,  var car = { name : "Ford", model: "Automatic", speed : 120 }; 
+       An object can also have methods other than key : value pairs
+            var student = { name : "Kalai",
+                            display() { console.log(this.name) } }
+            student.display()  // Output : Kalai
+
+8. Keys of an object should be unique, if not, the most recent value of a key is only considered
+ex., var dup = { a : 123 , a : 456 , a : 789 } 
+     console.log(dup["a"]) // Output:  789
+     
+9. Unassigned values for a key is always undefined.
+ex., var dup = { a : 123 , a : 456 , a : 789 } 
+     console.log(dup["b"]) 
+     Output:  undefined 
+10. Objects are reference data type. It uses call by refernece. 
+Ex., var apple = { color : "red" }
+    var banana = apple // banana refers to Object apple 
+    console.log(apple["color"]) // Output : red
+    console.log(banana["color"]) // Output : red
+
+11. In the above way of creating objects using literal {}, we are assigning the properties 
+of an object to a variable name. that is, 
+       var variable_name = { key1 : value1 , key2 : value2 , ..}
+       scope can be var / let / const.
+
+12. When one object variable is assigned to another, it only refers, there is only one physical memory to store data. 
+    Data is shared by all the references and all referencing objects can modify the shared data and 
+    all such changes will be reflected commonly. 
+
+   Ex., var apple = { color : "red" }
+        var banana = apple // banana refers to Object apple  
+        console.log(apple["color"]) // Output : red
+        console.log(banana["color"]) // Output : red 
+        // changing in Object apple 
+        apple["color"] = "green" 
+        console.log(apple["color"]) // Output : green
+        console.log(banana["color"]) // Output : green 
+        // changing in Object banana 
+        banana["color"] = "yellow" 
+        console.log(apple["color"]) // Output : yellow
+        console.log(banana["color"]) // Output : yellow 
+    
+13. To overcome this and create multiple objects having same properties(keys) but different values 
+We can use a constructor function to initialize objects and create various instances of object using "new" keyword
+which means different physical memory for every instance of the object for the same template of properties. 
+    
+    //1. Constructor to define an Object type and its properties: 
+            function Zen(name, course, year) {
+            this.name = name;
+            this.course = course;
+            this.year = year;
+            }
+    //2. Create instances of the objects using "new" keyword
+        let Kalai = new Zen("kalai", "FSD", 2022);      
+        let Saba = new Zen("Saba", "DS", 2023);      
+        console.log(Kalai) // Output : Zen {name: 'kalai', course: 'FSD', year: 2022}
+        console.log(Saba) // Output : Zen {name: 'Saba', course: 'DS', year: 2023}
+        console.log(Kalai.course) // Output : FSD
+        console.log(Saba["year"]) // Output : 2023
+
+// we can add new properties to objects separately too but structure of Constructor function is unchanged 
+Ex.,
+        Saba.type = "list"
+        console.log(Saba) // Zen {name: 'Saba', course: 'DS', year: 2023, type: 'list'}
+        console.log(Kalai) Zen {name: 'kalai', course: 'FSD', year: 2022}
+        let Kavi = new Zen("Kavi", "DSP", 2023, "select");  
+        console.log(Kavi) //  Zen {name: 'Kavi', course: 'DSP', year: 2023}
+
+
+14. Creating objects using new Object() method. Here we don't use the literal {} 
+We can use this method to create an object, with or without properties.
+
+    Ex.,    var person = new Object();
+            console.log(person); // Output : {}
+            // we can add properties to this object 
+            person.name = "Kavi"
+            person.age  = 13
+            console.log(person); // Output : {name: 'Kavi', age: 13}
+
+15. Creating objects using Object.create() method 
+       const House = { type : "independent" ,
+                        floor : 2, 
+                        message() { console.log(this.type,"house with",this.floor,"floors")} }
+        
+        // using Object.create() 
+       
+        const vidya = Object.create(House); 
+        console.log(vidya) // Output : {} 
+        console.log(House) // Output : {type: 'independent', floor: 2, message: ƒ}
+
+        // eventhough vidya object is empty {} now, it refers to the data in template House
+       
+        console.log(vidya.type) // Output : independent
+        console.log(vidya.message()) // Output : independent house with 2 floors
+
+        // add or modify properties without changing template object 
+       
+        vidya.type = "apartment";
+        console.log(vidya.message()) // Output : apartment house with 2 floors
+        vidya.owner= "rental"
+        console.log(vidya) // Output :{type: 'apartment', owner: 'rental'}
+        console.log(House) // Output : {type: 'independent', floor: 2, message: ƒ}
+
+16. The keys or values of a particular object can be obtained as an array using in-built function in JS 
+using Object class. 
+// to get keys : Object.keys(obj_name)
+// to get keys : Object.values(obj_name) 
+      
+      var listed = { a : 123, 1 : "abdc", obj1 : { a: 1, b : 2}, arr : [1,2,3,4], true : false, 
+                null : "nothing", undefined : "not defined" } 
+            
+            console.log(Object.keys(listed)) 
+            //Output : ['1', 'a', 'obj1', 'arr', 'true', 'null', 'undefined']
+           
+            console.log(Object.values(listed))
+            //Output : ['abdc', 123, {…}, Array(4), false, 'nothing', 'not defined']
+

@@ -1,5 +1,5 @@
 HTTP stands for Hyper Text Transfer Protocol
-It is a layer 7 protocol (App Pres Sess Trans Netw Data Phy)
+It is a layer 7 protocol - Application layer  (App Pres Sess Trans Netw Data Phy)
 It enables client browser to communicate with a web server 
 We can get information from server and also send data to server and update data in server.
 We do this using HTTP requests like GET, POST, PUT, DELETE etc.
@@ -35,4 +35,7 @@ HTTP2 :
 of a page as HPACK reduces volume of header data in each HTTP packet.
 7. HTTP/2 allows the server to "push" content to a client before the client asks for it, saving time.
 The server sends all the other files like CSS & JS without the request of the client using the PUSH frame.
-uses port TCP 443, but will also be supported on port 80. Port 443 is secure as it uses encryption.
+uses port TCP 443, but will also be supported on port 80. Port 443 is secure as it uses encryption. 
+
+HTTP2 offers content prioritizaion and is more efficient in handling huge resource volume than HTTP1.1.
+
